@@ -1,0 +1,7 @@
+package com.hostmdy.review.domain;
+
+public enum Sensors {
+	
+	SIDE_FINGERPRINT,UNDER_DISPLAY_FINGERPRINT,ACCELEROMETER,GYRO,PROXIMITY,COMPASS,BAROMETER
+
+}

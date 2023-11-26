@@ -1,0 +1,87 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authenticate</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-s pb-5 bg-info-subtle" style="height: 40rem">
+      <div th:insert="~{./common/nav :: navbar}"></div>
+
+      <div class="card m-auto col-md-4 p-3 mt-4" style="width: 18rem">
+        <h5 class="card-title text-center">Authentication form</h5>
+        <div class="card-body">
+          <form
+            class="p-3 g-3"
+            th:object="${admin}"
+            th:action="@{/admin/authenticate}"
+            method="post"
+          >
+            <input type="hidden" name="id" th:value="${admin.id}" />
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                placeholder="Admin's Name"
+                th:field="*{name}"
+              />
+              <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="password"
+                class="form-control"
+                id="floatingPassword"
+                placeholder="Password"
+                th:field="*{password}"
+              />
+              <label for="floatingPassword">Password</label>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">
+              Authenticate
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        th:if="${message != null}"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img
+            src="https://i.pinimg.com/originals/0d/cf/b5/0dcfb548989afdf22afff75e2a46a508.jpg"
+            class="rounded me-2"
+            alt="..."
+          />
+          <strong class="me-auto text-success">Notice!</strong>
+          <small>just now</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div th:value="${message}" class="toast-body">message</div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

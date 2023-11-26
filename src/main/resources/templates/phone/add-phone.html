@@ -1,0 +1,265 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Phone</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-s pb-5 bg-info-subtle">
+      <div th:insert="~{./common/nav :: navbar}"></div>
+
+      <div class="container-fluid m-auto bg-dark">
+        <div class="card m-auto col-10 gap-3 p-3">
+          <h2>Fill The Phone Information</h2>
+          <form
+            class="row g-3 m-3"
+            th:object="${phone}"
+            th:action="@{/phone/new}"
+            method="post"
+          >
+            <input type="hidden" th:field="*{id}" />
+            <div class="col-md-6">
+              <label for="phoneName" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneName"
+                th:field="*{name}"
+                th:value="${phone.name}"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="phoneBrand" class="form-label">Brand</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneBrand"
+                th:field="*{brand}"
+                th:value="${phone.brand}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="phoneModel" class="form-label">Model</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneModel"
+                th:field="*{model}"
+                th:value="${phone.model}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="phoneLaunch" class="form-label">Launch</label>
+              <input
+                type="date"
+                class="form-control"
+                id="phoneLaunch"
+                th:field="*{launch}"
+                th:value="${phone.launch}"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input
+                type="text"
+                class="form-control"
+                id="phonePrice"
+                placeholder="Price"
+                aria-label="Amount (to the nearest dollar)"
+                th:field="*{price}"
+                th:value="${phone.price}"
+              />
+              <span class="input-group-text">.00</span>
+            </div>
+            <div class="col-12">
+              <label for="phoneMemory" class="form-label">Memory</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneMemory"
+                th:field="*{memory}"
+                th:value="${phone.memory}"
+              />
+            </div>
+            <div
+              th:if="${phone.sensors != null}"
+              class="form-check"
+              th:each="sensor : ${T(com.hostmdy.review.domain.Sensors).values()}"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{sensors}"
+                th:value="${sensor}"
+                th:selected="${phone.sensors.contains(sensor)}"
+                id="phoneSensors"
+              />
+              <label
+                class="form-check-label"
+                th:text="${sensor}"
+                for="phoneSensors"
+              >
+                Phone Sensor
+              </label>
+            </div>
+            <div
+              th:unless="${phone.sensors != null}"
+              class="form-check"
+              th:each="sensor : ${sensors}"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{sensors}"
+                th:value="${sensor}"
+                id="phoneSensors"
+              />
+              <label
+                class="form-check-label"
+                th:text="${sensor}"
+                for="phoneSensors"
+              >
+                Phone Sensor
+              </label>
+            </div>
+            <div class="col-12">
+              <label for="phoneChipset" class="form-label">Chipset</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneChipset"
+                th:field="*{platform.chipset}"
+                th:value="${phone.platform.chipset}"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="phoneCPU" class="form-label">CPU</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneCPU"
+                th:field="*{platform.cpu}"
+                th:value="${phone.platform.cpu}"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="phoneGPU" class="form-label">GPU</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneGPU"
+                th:field="*{platform.gpu}"
+                th:value="${phone.platform.gpu}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="phoneOS" class="form-label">Operating System</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneOS"
+                th:field="*{platform.os}"
+                th:value="${phone.platform.os}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="phoneDimensions" class="form-label"
+                >Body Dimensions</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="phoneDimensions"
+                th:field="*{body.dimensions}"
+                th:value="${phone.body.dimensions}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="phoneWeight" class="form-label">Weight</label>
+              <input
+                type="number"
+                class="form-control"
+                id="phoneWeight"
+                th:field="*{body.weight}"
+                th:value="${phone.body.weight}"
+              />
+            </div>
+            <div class="form-check form-switch g-2 m-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                name="headphone_jack"
+                id="phoneHpJack"
+                th:field="*{body.headphone_jack}"
+                th:value="${phone.body.headphone_jack}"
+              />
+              <label class="form-check-label" for="phoneHpJack">
+                3.5mm Jack
+              </label>
+            </div>
+            <div class="col-12">
+              <label for="phoneUSB" class="form-label">USB Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneUSB"
+                th:field="*{body.usb_type}"
+                th:value="${phone.body.usb_type}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="batteryCapacity" class="form-label"
+                >Battery Capacity</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="batteryCapacity"
+                placeholder="mAh"
+                th:field="*{battery.capacity}"
+                th:value="${phone.battery.capacity}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="batteryType" class="form-label">Battery Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="batteryType"
+                th:field="*{battery.type}"
+                th:value="${phone.battery.type}"
+              />
+            </div>
+            <div class="col-12">
+              <label for="batteryCharging" class="form-label">Charging</label>
+              <input
+                type="text"
+                class="form-control"
+                id="batteryCharging"
+                th:field="*{battery.charging}"
+                th:value="${phone.battery.charging}"
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

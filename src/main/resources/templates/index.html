@@ -1,0 +1,74 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Home</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .card {
+        display: flex;
+        flex-direction: row;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-s pb-5 bg-info-subtle">
+      <div th:insert="~{common/nav :: navbar}" class="pb-2"></div>
+
+      <div
+        class="card d-inline-block col-6 m-4 p-3 g-2 text-bg-secondary"
+        th:each="phone : ${phones}"
+        style="max-width: 540px"
+      >
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              th:src="@{'/image/phone/'+${phone.id}+'/show'}"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${phone.name}">Phone Name</h5>
+              <p class="card-text" th:text="${'Released: '+phone.launch}">
+                Launch
+              </p>
+              <p class="card-text" th:text="${phone.memory}">Memory</p>
+              <p class="card-text" th:text="${'$ '+phone.price}">Price</p>
+              <a
+                th:href="@{'/phone/'+${phone.id}+'/show'}"
+                class="btn btn-primary"
+                >Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${message != null}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="https://i.pinimg.com/originals/0d/cf/b5/0dcfb548989afdf22afff75e2a46a508.jpg" class="rounded me-2" alt="...">
+          <strong class="me-auto text-success">Notice!</strong>
+          <small>just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div th:value="${message}" class="toast-body">
+          message
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
